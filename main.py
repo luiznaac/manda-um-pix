@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from request_handler import RequestHandler
 from socketserver import ThreadingMixIn
+import os
 import web
 
 request_handler: RequestHandler
@@ -20,7 +21,7 @@ class ThreadingHandler(ThreadingMixIn, HTTPServer):
 
 def run():
     create_context()
-    server_address = ('', 80)
+    server_address = ('', int(os.environ['PORT']))
     server = ThreadingHandler(server_address, Handler)
     server.serve_forever()
 
